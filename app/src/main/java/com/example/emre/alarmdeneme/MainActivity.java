@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        start= findViewById(R.id.button);
+        start = findViewById(R.id.button);
         alarmInfo = findViewById(R.id.alarmSetInfo);
 
         start.setOnClickListener(new View.OnClickListener() {
@@ -114,16 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 234324243, intent, 0);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        // Set the alarm to start at 8:30 a.m.
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, min);
 
-        // setRepeating() lets you specify a precise custom interval--in this case,
-        //  once a day.
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 60 * 24, pendingIntent);
-        Toast.makeText(this, "Alarm set",Toast.LENGTH_LONG).show();
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                pendingIntent);
     }
 }
